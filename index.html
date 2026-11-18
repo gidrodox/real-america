@@ -161,13 +161,13 @@ svg#map.drag{cursor:grabbing}
 #rkSee{background:none;border:0;padding:0;color:var(--route);font:600 18.5px var(--font-body);cursor:pointer;text-decoration:underline}
 
 /* photo-background cards (set BG_PHOTOS=false in the script to go back to photos above the text) */
-.stop.bg{position:relative;color:#fff;background-size:cover;background-position:center;min-height:380px;display:flex;flex-direction:column;border-bottom:4px solid var(--panel);text-shadow:0 1px 2px rgba(0,0,0,.8),0 0 12px rgba(0,0,0,.5)}
-.stop.bg:hover{filter:brightness(1.04)}
+.stop.bg{position:relative;color:#fff;background-size:cover;background-position:center;aspect-ratio:16/9;display:flex;flex-direction:column;border-bottom:4px solid var(--panel);text-shadow:0 0 2px rgba(0,0,0,.95),0 1px 3px rgba(0,0,0,.9),0 0 10px rgba(0,0,0,.7)}
+.stop.bg:hover{filter:none}
 .stop.bg.active{box-shadow:inset 0 0 0 3px var(--accent)}
 .stop.bg .sname{color:#fff}
 .stop.bg .when{color:rgba(255,255,255,.88)}
 .stop.bg .wxt{color:#fff}
-.stop.bg .body{margin-top:auto;padding-top:90px}
+.stop.bg .body{margin-top:auto;padding-top:24px}
 .stop.bg .body p,.stop.bg .body li{color:#fff}
 .stop.bg .show{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.55);color:#fff;text-shadow:none;backdrop-filter:blur(2px)}
 .stop.bg .show:hover{background:rgba(255,255,255,.28)}
@@ -500,7 +500,7 @@ function render(){
  o.stops.forEach(s=>{
   if(s.leg){h+='<div class="leg'+(s.fly?' fly':'')+'"><b>'+s.leg+'</b> '+esc(s.t)+'</div>';return}
   const ph=('img' in s)?s.img:(IMGS.includes(s.id)?s.id:null),bg=BG_PHOTOS&&ph;
-  h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:linear-gradient(180deg,rgba(10,14,18,.72) 0%,rgba(10,14,18,.4) 22%,rgba(10,14,18,.62) 45%,rgba(10,14,18,.9) 100%),url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
+  h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
    '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><button class="show" type="button">Show on map</button></div></section>';
  });
  list.innerHTML=h;list.scrollTop=0;
