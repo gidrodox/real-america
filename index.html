@@ -229,6 +229,19 @@ svg#map.drag{cursor:grabbing}
 #list::-webkit-scrollbar-track{background:#1a252b}
 #list::-webkit-scrollbar-thumb{background:#3d4c54;border-radius:5px;border:2px solid #1a252b}
 #list::-webkit-scrollbar-thumb:hover{background:#56676f}
+
+.stop.below{background:#1a252b;color:#fff}
+.stop.below .sname{color:#fff}
+.stop.below .when{color:rgba(255,255,255,.72)}
+.stop.below .wxt{color:#fff}
+.stop.below .body p,.stop.below .body li{color:#fff}
+.stop.below:hover{background:#1f2b31}
+.stop.below .body{font-size:15.75px;line-height:1.4}
+.stop.below .body li{margin:0 0 2px}
+.stop.below.active{background:#1f2b31}
+.stars{font-size:25px}
+.rankbtn{font-size:22px;padding:13px 22px}
+@media (max-width:820px){.rankbtn{font-size:18px;padding:11px 14px}}
 </style>
 </head>
 <body>
@@ -298,15 +311,15 @@ sep:{
   {leg:'Drive',t:'about 45 minutes'},
   {id:'bran',wx:{t:28,i:'☀️'},img:'bran',name:'Branson',dx:18,dy:5,a:'start',when:'Tue 26 September · 1 night',intro:'The Ozarks’ capital of country shows.',b:['A hillbilly variety show in the evening.','The strip’s oddities, including a half-size replica of the Titanic.']},
   {leg:'Drive',t:'about 3 hours, through Eureka Springs and over the Pig Trail'},
-  {id:'fs',wx:{t:32,i:'☀️'},img:'fs',name:'Fort Smith',dx:18,dy:5,a:'start',when:'Wed 27 September · 1 night',intro:'A frontier town on the edge of what was Indian Territory.',b:['On the way, Eureka Springs: a Victorian hill town built into a cliffside, under the seven-storey Christ of the Ozarks statue.','On the way, the Pig Trail, a twisting mountain road through the Ozarks.','The “Hanging Judge’s” courthouse and gallows.','The U.S. Marshals Museum, on the lawmen who chased outlaws through Indian Territory.']},
+  {id:'fs',wx:{t:32,i:'☀️'},img:'fs',name:'Fort Smith',dx:18,dy:5,a:'start',when:'Wed 27 September · 1 night',intro:'A frontier town on the edge of what was Indian Territory.',b:['On the way, Eureka Springs under a seven-storey Christ of the Ozarks statue.','On the way, the Pig Trail, a twisting mountain road through the Ozarks.','The “Hanging Judge’s” courthouse and gallows.','The U.S. Marshals Museum.']},
   {leg:'Drive',t:'about 1.25 hours'},
   {id:'rog',img:'rog',wx:{t:29,i:'☀️'},name:'Rogers',dx:-14,dy:24,a:'end',when:'Thu 28 September · 1 night',intro:'Arkansas’s north-west corner, home of Walmart.',b:['Bikes, Blues & BBQ, one of America’s biggest motorcycle rallies, in full swing from morning to late night.','The barbecue championship and thousands of Harleys lining the streets.','The Walmart Museum, in Sam Walton’s original store in Bentonville.']},
   {leg:'Drive',t:'about 5.75 hours, on Route 66 from Tulsa to Oklahoma City'},
-  {id:'law',img:'law',wx:{t:32,i:'☀️'},name:'Lawton',dx:-20,dy:5,a:'end',when:'Fri 29 and Sat 30 September · 2 nights',intro:'Home of the Comanche Nation, at the foot of the Wichita Mountains.',b:['On the way, Route 66 from Tulsa to Oklahoma City: the Blue Whale of Catoosa, lunch at the 1939 Rock Café in Stroud, then Arcadia’s Round Barn and the giant soda bottle at Pops.','Friday evening at the Comanche Nation Fair, with the powwow and food stalls.','Saturday’s parade in the morning and the 7pm grand entry, with hundreds of dancers in regalia.','Bison and longhorns in the Wichita Mountains on Sunday morning.']},
+  {id:'law',img:'law',wx:{t:32,i:'☀️'},name:'Lawton',dx:-20,dy:5,a:'end',when:'Fri 29 and Sat 30 September · 2 nights',intro:'Home of the Comanche Nation, at the foot of the Wichita Mountains.',b:['On the way, Route 66 from Tulsa to Oklahoma City.','Friday evening at the Comanche Nation Fair, with the powwow and food stalls.','Parade and grand entry, with hundreds of dancers in regalia.','Bison and longhorns in the Wichita Mountains.']},
   {leg:'Drive',t:'about 2 hours, through the Wichita Mountains'},
   {id:'okc',img:'okc',wx:{t:28,i:'☀️'},name:'Oklahoma City',dx:-20,dy:-8,a:'end',when:'Sun 1 October · 1 night',intro:'Oklahoma’s capital, where cattle country meets oil money.',b:['The First Americans Museum, telling the stories of Oklahoma’s 39 tribal nations.','The stockyards cattle auction on Monday morning, at the world’s largest stocker and feeder cattle market.']},
   {leg:'Fly',t:'about 3 hours',fly:true},
-  {id:'mia',wx:{t:32,i:'🌦️'},name:'Miami',dx:20,dy:5,a:'start',when:'Mon 2 and Tue 3 October · 2 nights',intro:'Where Latin America meets the United States.',b:['An airboat ride across the Everglades sawgrass.','Then Key Largo to snorkel the coral reef at John Pennekamp.','Little Havana for Cuban sandwiches and coffee.']},
+  {id:'mia',wx:{t:32,i:'🌦️'},name:'Miami',dx:20,dy:5,a:'start',when:'Mon 2 and Tue 3 October · 2 nights',intro:'Where Latin America meets the United States.',b:['An airboat ride across the Everglades.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Little Havana for Cuban sandwiches and coffee.']},
   {leg:'Drive',t:'about 3 hours'},
   {id:'cape',wx:{t:29,i:'⛅'},name:'Cape Canaveral',dx:20,dy:5,a:'start',when:'Wed 4 and Thu 5 October · 2 nights',intro:'America’s spaceport, on the Florida coast.',b:['A live rocket launch, watched from the beach.','Kennedy Space Center.','A night alligator hunt with a licensed guide.']},
   {leg:'Drive',t:'about 1 hour'},
@@ -336,11 +349,11 @@ val:{
   {leg:'Drive',t:'about 45 minutes'},
   {id:'bard',wx:{t:21,i:'🌦️'},img:'bard',name:'Bardstown',dx:20,dy:5,a:'start',when:'Sun 7 May · 1 night',intro:'The Bourbon Capital of the World, in the Kentucky hills.',b:['Distillery tours and tastings along the Kentucky Bourbon Trail.','An evening in the old town’s bourbon bars.']},
   {leg:'Drive',t:'about 2.75 hours, stopping in Amish country and at Mammoth Cave'},
-  {id:'nash',wx:{t:26,i:'🌦️'},img:'nash_nov',name:'Nashville',dx:-20,dy:5,a:'end',when:'Mon 8 and Tue 9 May · 2 nights',intro:'Country music’s capital.',b:['On the way, Kentucky’s largest Amish community, around Horse Cave: Amish bakeries, country stores and farms.','On the way, Mammoth Cave, the world’s longest cave system.','Honky-tonks along Broadway, with live bands from lunchtime to closing.','The Grand Ole Opry on a Tuesday night.','Nashville hot chicken.']},
+  {id:'nash',wx:{t:26,i:'🌦️'},img:'nash_nov',name:'Nashville',dx:-20,dy:5,a:'end',when:'Mon 8 and Tue 9 May · 2 nights',intro:'Country music’s capital.',b:['On the way, Kentucky’s largest Amish community, around Horse Cave.','On the way, Mammoth Cave, the world’s longest cave system.','Honky-tonks along Broadway.','The Grand Ole Opry.','Nashville hot chicken.']},
   {leg:'Drive',t:'about 4 hours, stopping at Tennessee Silencer'},
   {id:'gat',wx:{t:23,i:'🌦️'},img:'gat',name:'Gatlinburg',dx:20,dy:5,a:'start',when:'Wed 10 May · 1 night',intro:'A mountain town at the edge of the Smokies.',b:['On the way, Tennessee Silencer: a Humvee ride to the range, .50 cal machine guns, flamethrowers and shooting from a tank.','Moonshine tasting rooms on the main street.','The Smoky Mountains.']},
   {leg:'Fly',t:'about 1 hour by car to Knoxville, then about 1.5 hours, then about 1 hour by car',fly:true},
-  {id:'dayt',wx:{t:28,i:'⛅'},img:'dayt_car',name:'Daytona Beach',dx:20,dy:5,a:'start',when:'Thu 11 May · 1 night',intro:'The home of American stock car racing.',b:['The biker bars of Main Street.','Destination Daytona, a giant Harley dealership with bars and live music.','Drive a NASCAR stock car round the Speedway, or ride along at up to 170 mph.','The Motorsports Hall of Fame.']},
+  {id:'dayt',wx:{t:28,i:'⛅'},img:'clt',below:true,name:'Daytona Beach',dx:20,dy:5,a:'start',when:'Thu 11 May · 1 night',intro:'The home of American stock car racing.',b:['The biker bars of Main Street.','Destination Daytona, a giant Harley dealership with bars and live music.','Drive a NASCAR stock car round the Speedway, or ride along at up to 170 mph.','The Motorsports Hall of Fame.']},
   {leg:'Drive',t:'about 1 hour'},
   {id:'orl',wx:{t:29,i:'🌧️'},img:'orl_bus',name:'Orlando',dx:-20,dy:5,a:'end',when:'Fri 12 May · 1 night',intro:'Central Florida.',b:['Friday night racing at Orlando Speed World: stock cars on the oval or street cars on the drag strip.']},
   {leg:'Drive',t:'about 1.5 hours'},
@@ -348,7 +361,7 @@ val:{
   {leg:'Drive',t:'about 2 hours'},
   {id:'cape',wx:{t:29,i:'🌧️'},name:'Cape Canaveral',dx:20,dy:5,a:'start',when:'Sun 14 and Mon 15 May · 2 nights',intro:'America’s spaceport, on the Florida coast.',b:['A live rocket launch, watched from the beach.','Kennedy Space Center.']},
   {leg:'Drive',t:'about 3 hours'},
-  {id:'mia',wx:{t:30,i:'🌦️'},name:'Miami',dx:20,dy:5,a:'start',when:'Tue 16 to Thu 18 May · 3 nights',intro:'Where Latin America meets the United States.',b:['A day trip to the Everglades: an airboat ride across a sawgrass marsh full of alligators, and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Little Havana for Cuban sandwiches and coffee.','Machine guns at Lock & Load.','South Beach.']}
+  {id:'mia',wx:{t:30,i:'🌦️'},name:'Miami',dx:20,dy:5,a:'start',when:'Tue 16 to Thu 18 May · 3 nights',intro:'Where Latin America meets the United States.',b:['South Beach and Little Havana.','A full-auto machine gun session at Lock & Load.','A day trip to the Everglades and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.']}
  ],
  minor:[],
  roads:[
@@ -369,7 +382,7 @@ nov:{
  sc:[4.5,3.5,4.5],
  diff:['The Jack Daniel’s distillery in Lynchburg.','Halloween night in Atlanta.','Presidential election night in Miami.'],
  stops:[
-  {id:'nash',wx:{t:21,i:'⛅'},img:'nash_nov',name:'Nashville',dx:0,dy:-22,a:'middle',when:'Fri 27 and Sat 28 October · 2 nights',intro:'Country music’s capital.',b:['Honky-tonks along Broadway, with live bands from lunchtime to closing.','A day trip to Ethridge, Tennessee’s Amish country: a horse-drawn wagon through the farms.','The Grand Ole Opry on a Saturday night.','Sunday morning at a megachurch with thousands of worshippers, before heading on.','Nashville hot chicken.']},
+  {id:'nash',wx:{t:21,i:'⛅'},img:'nash_nov',name:'Nashville',dx:0,dy:-22,a:'middle',when:'Fri 27 and Sat 28 October · 2 nights',intro:'Country music’s capital.',b:['Honky-tonks along Broadway.','A day trip to Ethridge, Tennessee’s Amish country: a horse-drawn wagon through the farms.','The Grand Ole Opry.','Sunday morning at a megachurch with thousands of worshippers.','Nashville hot chicken.']},
   {leg:'Drive',t:'about 2.75 hours, stopping at Jack Daniel’s'},
   {id:'chat',wx:{t:19,i:'🌦️'},img:'chat',name:'Chattanooga',dx:-20,dy:5,a:'end',when:'Sun 29 October · 1 night',intro:'A river city in the Tennessee hills.',b:['On the way, the Jack Daniel’s distillery in Lynchburg.','Lookout Mountain and Rock City.','The riverfront and the old Chattanooga Choo Choo station.']},
   {leg:'Drive',t:'about 2.25 hours'},
@@ -385,7 +398,7 @@ nov:{
   {leg:'Drive',t:'about 2 hours'},
   {id:'cape',wx:{t:26,i:'⛅'},name:'Cape Canaveral',dx:20,dy:5,a:'start',when:'Sun 5 and Mon 6 November · 2 nights',intro:'America’s spaceport, on the Florida coast.',b:['A live rocket launch, watched from the beach.','Kennedy Space Center.']},
   {leg:'Drive',t:'about 3 hours'},
-  {id:'mia',wx:{t:28,i:'⛅'},name:'Miami',dx:20,dy:5,a:'start',when:'Tue 7 to Thu 9 November · 3 nights',intro:'Where Latin America meets the United States, and the place to watch the presidential election results.',b:['Presidential election night in the bars of Little Havana.','A day trip to the Everglades: an airboat ride across a sawgrass marsh full of alligators, and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Little Havana for Cuban sandwiches and coffee.','Florida Panthers ice hockey.']} 
+  {id:'mia',wx:{t:28,i:'⛅'},name:'Miami',dx:20,dy:5,a:'start',when:'Tue 7 to Thu 9 November · 3 nights',intro:'Where Latin America meets the United States.',b:['Presidential election night in the bars of Little Havana.','A day trip to the Everglades and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Florida Panthers ice hockey.']} 
  ],
  minor:[],
  roads:[
@@ -409,9 +422,9 @@ may:{
   {leg:'Drive',t:'about 45 minutes'},
   {id:'bard',wx:{t:21,i:'🌦️'},img:'bard',name:'Bardstown',dx:20,dy:5,a:'start',when:'Sun 7 May · 1 night',intro:'The Bourbon Capital of the World, in the Kentucky hills.',b:['Distillery tours and tastings along the Kentucky Bourbon Trail.','An evening in the old town’s bourbon bars.']},
   {leg:'Drive',t:'about 2.75 hours, stopping at Mammoth Cave'},
-  {id:'nash',wx:{t:26,i:'🌦️'},img:'nash_nov',name:'Nashville',dx:-20,dy:5,a:'end',when:'Mon 8 and Tue 9 May · 2 nights',intro:'Country music’s capital.',b:['On the way, Mammoth Cave, the world’s longest cave system.','Honky-tonks along Broadway, with live bands from lunchtime to closing.','The Grand Ole Opry on a Tuesday night.','A day trip to Ethridge, Tennessee’s Amish country: a horse-drawn wagon through the farms.','Nashville hot chicken.']},
+  {id:'nash',wx:{t:26,i:'🌦️'},img:'nash_nov',name:'Nashville',dx:-20,dy:5,a:'end',when:'Mon 8 and Tue 9 May · 2 nights',intro:'Country music’s capital.',b:['On the way, Mammoth Cave, the world’s longest cave system.','Honky-tonks along Broadway.','The Grand Ole Opry.','A day trip to Ethridge, Tennessee’s Amish country: a horse-drawn wagon through the farms.','Nashville hot chicken.']},
   {leg:'Fly',t:'about 1.25 hours',fly:true},
-  {id:'clt',wx:{t:26,i:'⛅'},name:'Charlotte',dx:20,dy:5,a:'start',when:'Wed 10 May · 1 night',intro:'NASCAR’s home town.',b:['The NASCAR Hall of Fame.','Drive or ride in a real stock car at Charlotte Motor Speedway.']},
+  {id:'clt',wx:{t:26,i:'⛅'},below:true,name:'Charlotte',dx:20,dy:5,a:'start',when:'Wed 10 May · 1 night',intro:'NASCAR’s home town.',b:['The NASCAR Hall of Fame.','Drive or ride in a real stock car at Charlotte Motor Speedway.']},
   {leg:'Drive',t:'about 4 hours, stopping for South Carolina barbecue'},
   {id:'sav',wx:{t:27,i:'🌦️'},img:'sav_may',name:'Savannah',dx:20,dy:5,a:'start',when:'Thu 11 May · 1 night',intro:'A Georgia river port laid out around oak-shaded squares.',b:['On the way, mustard-sauce barbecue in the South Carolina Midlands.','A walk through the historic squares under the Spanish moss.','The bars of River Street.']},
   {leg:'Drive',t:'about 2.5 hours, stopping on the Georgia coast'},
@@ -421,7 +434,7 @@ may:{
   {leg:'Drive',t:'about 2 hours'},
   {id:'cape',wx:{t:29,i:'🌧️'},name:'Cape Canaveral',dx:20,dy:5,a:'start',when:'Sun 14 and Mon 15 May · 2 nights',intro:'America’s spaceport, on the Florida coast.',b:['A live rocket launch, watched from the beach.','Kennedy Space Center.']},
   {leg:'Drive',t:'about 3.5 hours'},
-  {id:'mia',wx:{t:30,i:'🌦️'},name:'Miami',dx:20,dy:5,a:'start',when:'Tue 16 to Thu 18 May · 3 nights',intro:'Where Latin America meets the United States.',b:['A day trip to the Everglades: an airboat ride across a sawgrass marsh full of alligators, and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Little Havana for Cuban sandwiches and coffee.','Machine guns at Lock & Load.','South Beach.']}
+  {id:'mia',wx:{t:30,i:'🌦️'},name:'Miami',dx:20,dy:5,a:'start',when:'Tue 16 to Thu 18 May · 3 nights',intro:'Where Latin America meets the United States.',b:['South Beach and Little Havana.','A full-auto machine gun session at Lock & Load.','A day trip to the Everglades and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.']}
  ],
  minor:[],
  roads:[
@@ -443,11 +456,11 @@ mar:{
  sc:[4,4,5],
  diff:['Memphis: blues bars, Elvis.','St Patrick\u2019s Day in Savannah, one of the largest parades in America.','Tennessee’s primary election night.'],
  stops:[
-  {id:'nash',wx:{t:18,i:'☁️'},name:'Nashville',dx:0,dy:-22,a:'middle',when:'Sat 4 and Sun 5 March · 2 nights',intro:'Country music\u2019s capital.',b:['Honky-tonks along Broadway, with live bands from lunchtime to closing.','The Grand Ole Opry on a Saturday night.','Sunday morning at Mount Zion Baptist, the city\u2019s biggest megachurch: thousands of worshippers, a huge choir and loud, joyful praise.','Nashville hot chicken.']},
+  {id:'nash',wx:{t:18,i:'☁️'},name:'Nashville',dx:0,dy:-22,a:'middle',when:'Sat 4 and Sun 5 March · 2 nights',intro:'Country music\u2019s capital.',b:['Honky-tonks along Broadway.','The Grand Ole Opry.','Sunday morning at a megachurch with thousands of worshippers.','Nashville hot chicken.']},
   {leg:'Drive',t:'about 4.5 hours, stopping in Amish country'},
   {id:'mem',wx:{t:18,i:'☁️'},name:'Memphis',dx:0,dy:30,a:'middle',when:'Mon 6 and Tue 7 March · 2 nights',intro:'The home of the blues and of Elvis.',b:['On the way, Ethridge, Tennessee’s Amish country: a horse-drawn wagon through the farms.','The blues bars of Beale Street.','Graceland and Sun Studio, where rock and roll was first recorded.','Dry-rub ribs, the Memphis style of barbecue.']},
   {leg:'Fly',t:'about 2.5 hours',fly:true},
-  {id:'mia',wx:{t:27,i:'⛅'},name:'Miami',dx:20,dy:5,a:'start',when:'Wed 8 to Sat 11 March · 4 nights',intro:'Where Latin America meets the United States.',b:['South Beach.','A full-auto machine gun session at Lock & Load, an indoor range in Wynwood.','A day trip to the Everglades: an airboat ride across a sawgrass marsh full of alligators, and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Little Havana for Cuban sandwiches and coffee.','Florida Panthers ice hockey.']},
+  {id:'mia',wx:{t:27,i:'⛅'},name:'Miami',dx:20,dy:5,a:'start',when:'Wed 8 to Sat 11 March · 4 nights',intro:'Where Latin America meets the United States.',b:['South Beach and Little Havana.','A full-auto machine gun session at Lock & Load.','A day trip to the Everglades and a guided hunt after dark for invasive Burmese pythons.','A day trip to Key Largo to snorkel the coral reef at John Pennekamp.','Florida Panthers ice hockey.']},
   {leg:'Drive',t:'about 3 hours'},
   {id:'rr',wx:{t:27,i:'☁️'},name:'River Ranch',dx:-20,dy:5,a:'end',when:'Sun 12 March · 1 night',intro:'A dude ranch in Florida cattle country.',b:['The Saturday night rodeo: bull riding, barrel racing and trick riding.','A swamp buggy ride through the wetlands.','Country bands and line dancing in the ranch saloon.']},
   {leg:'Drive',t:'about 2 hours'},
@@ -455,7 +468,7 @@ mar:{
   {leg:'Drive',t:'about 1.25 hours'},
   {id:'dayt',wx:{t:23,i:'☁️'},name:'Daytona Beach',dx:20,dy:5,a:'start',when:'Wed 15 March · 1 night',intro:'The home of American racing, taken over by Bike Week.',b:['Bike Week, one of the world’s biggest motorcycle rallies: bike shows and biker bars.','Buc-ee\u2019s, a petrol station the size of a supermarket.']},
   {leg:'Drive',t:'about 3.5 hours, stopping in St Augustine'},
-  {id:'sav',wx:{t:23,i:'☁️'},name:'Savannah',dx:20,dy:5,a:'start',when:'Thu 16 and Fri 17 March · 2 nights',intro:'A Georgia river port laid out around oak-shaded squares.',b:['On the way, St Augustine, America’s oldest city, with its Spanish stone fort.','St Patrick’s Day: one of America’s largest parades, then the bars, where you can carry your drink from one to the next.','A walk through the historic squares under the Spanish moss.','First African Baptist Church, the oldest Black church in America, with hiding places from the Underground Railroad under the floor.']}
+  {id:'sav',wx:{t:23,i:'☁️'},name:'Savannah',dx:20,dy:5,a:'start',when:'Thu 16 and Fri 17 March · 2 nights',intro:'A Georgia river port laid out around oak-shaded squares.',b:['On the way, St Augustine, America’s oldest city.','St Patrick’s Day: one of America’s largest parades.','A walk through the historic squares under the Spanish moss.','The oldest Black church in America and the Underground Railroad.']}
  ],
  minor:[{name:'Speed World',ll:[28.55,-81.1],to:'cape',dx:-12,dy:4,a:'end'},{name:'Charleston',ll:[32.777,-79.931],to:'sav',dx:12,dy:4,a:'start'}],
  roads:[
@@ -556,8 +569,8 @@ function render(){
   '<div class="diff"><h3>'+esc(o.diffH)+'</h3><ul>'+o.diff.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul></div></div>';
  o.stops.forEach(s=>{
   if(s.leg){h+='<div class="leg'+(s.fly?' fly':'')+'"><b>'+s.leg+'</b> '+esc(s.t)+'</div>';return}
-  const ph=('img' in s)?s.img:(IMGS.includes(s.id)?s.id:null),bg=BG_PHOTOS&&ph;
-  h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><div class="ttlbox"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
+  const ph=('img' in s)?s.img:(IMGS.includes(s.id)?s.id:null),bg=BG_PHOTOS&&ph&&!s.below;
+  h+='<section class="stop'+(bg?' bg':'')+(s.below?' below':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><div class="ttlbox"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
    '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></section>';
  });
  list.innerHTML=h+'<button class="rankbar" type="button">Rank the routes</button>';list.scrollTop=0;list.querySelector('.rankbar').addEventListener('click',()=>rkOpen());
