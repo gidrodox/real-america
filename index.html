@@ -258,10 +258,9 @@ svg#map.drag{cursor:grabbing}
       <h1>Real America, 2028</h1>
       <div class="tabs" role="tablist" aria-label="Choose a version">
         <button class="tab" role="tab" id="t-mar" data-opt="mar" aria-selected="true" aria-controls="list">March</button>
-        <button class="tab" role="tab" id="t-may" data-opt="may" aria-selected="false" aria-controls="list">May</button>
+        <button class="tab" role="tab" id="t-val" data-opt="val" aria-selected="false" aria-controls="list">May</button>
         <button class="tab" role="tab" id="t-sep" data-opt="sep" aria-selected="false" aria-controls="list">September</button>
         <button class="tab" role="tab" id="t-nov" data-opt="nov" aria-selected="false" aria-controls="list">November</button>
-        <button class="tab" role="tab" id="t-val" data-opt="val" aria-selected="false" aria-controls="list">Valera</button>
       </div>
     </header>
     <div id="list" tabindex="0" role="tabpanel" aria-label="Itinerary, stop by stop"></div>
@@ -346,8 +345,8 @@ sep:{
  flights:[['okc','mia',-0.35]]
 },
 val:{
- title:'The Derby, then November’s route, in May',
- diffH:'Only in Valera',
+ title:'Louisville to Miami in May',
+ diffH:'Only in May',
  sc:[4.5,3,4],
  diff:['November’s itinerary in May, with the Kentucky Derby replacing Chattanooga and Atlanta.'],
  stops:[
@@ -598,20 +597,20 @@ function setOpt(k){
  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.opt===k)));
  for(const key in OPT){const show=key===k;OPT[key].gR.style.display=show?'':'none';OPT[key].gM.style.display=show?'':'none'}
  render();fit();select(OPT[k].stops[0].id);
- try{history.replaceState(null,'','#'+({mar:'march',may:'may',sep:'september',nov:'november',val:'valera'})[k])}catch(_){}
+ try{history.replaceState(null,'','#'+({mar:'march',sep:'september',nov:'november',val:'may'})[k])}catch(_){}
 }
 document.querySelectorAll('.tab').forEach(t=>{
  t.addEventListener('click',()=>setOpt(t.dataset.opt));
- t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const O=['mar','may','sep','nov','val'];const n=O[(O.indexOf(t.dataset.opt)+(e.key==='ArrowLeft'?4:1))%5];setOpt(n);document.getElementById('t-'+n).focus()}});
+ t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const O=['mar','val','sep','nov'];const n=O[(O.indexOf(t.dataset.opt)+(e.key==='ArrowLeft'?3:1))%4];setOpt(n);document.getElementById('t-'+n).focus()}});
 });
-setOpt(/valera/i.test(location.hash)?'val':/september/i.test(location.hash)?'sep':/november/i.test(location.hash)?'nov':/may/i.test(location.hash)?'may':'mar');
+setOpt(/valera|may/i.test(location.hash)?'val':/september/i.test(location.hash)?'sep':/november/i.test(location.hash)?'nov':'mar');
 
 // ---- ranking ----
 const VOTE_URL='https://script.google.com/macros/s/AKfycbzzv3ttGmwNMs04ZwhDwGUaCaWrxHlxURa8872V3PsBFaMea_4wKIIin2wLPiPKjc_Jnw/exec';
-const RK_NAMES={mar:'March',may:'May',val:'Valera',sep:'September',nov:'November'};
-let rkOrder=['mar','may','sep','nov','val'];
+const RK_NAMES={mar:'March',val:'May',sep:'September',nov:'November'};
+let rkOrder=['mar','val','sep','nov'];
 const rkDlg=document.getElementById('rankDlg'),rkList=document.getElementById('rkList'),rkMsg=document.getElementById('rkMsg'),rkName=document.getElementById('rkName'),rkSend=document.getElementById('rkSend');
-try{const n=localStorage.getItem('rkName');if(n)rkName.value=n;const o=JSON.parse(localStorage.getItem('rkOrder')||'null');if(Array.isArray(o)&&o.length===5&&o.every(k=>RK_NAMES[k]))rkOrder=o}catch(_){}
+try{const n=localStorage.getItem('rkName');if(n)rkName.value=n;const o=JSON.parse(localStorage.getItem('rkOrder')||'null');if(Array.isArray(o)&&o.length===4&&o.every(k=>RK_NAMES[k]))rkOrder=o}catch(_){}
 function rkRender(){
  rkList.innerHTML='';
  rkOrder.forEach((k,i)=>{
@@ -623,7 +622,7 @@ function rkRender(){
   rkList.appendChild(li)});
  rkNumber();
 }
-function rkNumber(){[...rkList.children].forEach((li,i)=>{li.querySelector('.pos').textContent=i+1;li.setAttribute('aria-label',RK_NAMES[li.dataset.k]+', number '+(i+1)+' of 5. Drag, or use the up and down arrow keys to move.')});rkOrder=[...rkList.children].map(li=>li.dataset.k)}
+function rkNumber(){[...rkList.children].forEach((li,i)=>{li.querySelector('.pos').textContent=i+1;li.setAttribute('aria-label',RK_NAMES[li.dataset.k]+', number '+(i+1)+' of 4. Drag, or use the up and down arrow keys to move.')});rkOrder=[...rkList.children].map(li=>li.dataset.k)}
 function rkKey(li,d){const sib=d<0?li.previousElementSibling:li.nextElementSibling;if(!sib)return;if(d<0)rkList.insertBefore(li,sib);else rkList.insertBefore(sib,li);rkNumber();li.focus();rkSay(RK_NAMES[li.dataset.k]+' is now number '+(rkOrder.indexOf(li.dataset.k)+1)+'.')}
 let rkDrag=null;
 function rkDown(e){
