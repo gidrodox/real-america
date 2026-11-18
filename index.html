@@ -201,10 +201,8 @@ svg#map.drag{cursor:grabbing}
 /* dark top sections */
 #list{padding-top:0}
 .head .tabs{margin-top:14px;clear:both}
-.head{background:#1a252b;color:#fff;border-bottom:0}
-.head h1{color:#fff;margin:6px 0 0}
-.tab{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85)}
-.tab:hover{background:rgba(255,255,255,.14)}
+.head{border-bottom:0}
+.head h1{margin:6px 0 0}
 .tab[aria-selected="true"]{background:var(--route);border-color:var(--route);color:#fff}
 .intro{background:#1a252b;color:#fff;padding-bottom:16px}
 .intro h2{color:#fff}
@@ -217,6 +215,10 @@ svg#map.drag{cursor:grabbing}
 
 .body ul,.diff ul,.who{list-style-type:"▸  "}
 .body li::marker,.diff li::marker{color:var(--accent)}
+.legline{flex:none;margin-left:-44px;margin-right:2px}
+.leg.fly .legline line{stroke:#b99cf2}
+.leg .legline line{stroke:#62aef2}
+@media (max-width:820px){.legline{margin-left:-36px}}
 </style>
 </head>
 <body>
@@ -543,7 +545,7 @@ function render(){
  const o=OPT[cur];let h='<div class="intro"><div class="ttl"><h2>'+esc(o.title)+'</h2>'+scores(o.sc)+'</div>'+
   '<div class="diff"><h3>'+esc(o.diffH)+'</h3><ul>'+o.diff.map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul></div></div>';
  o.stops.forEach(s=>{
-  if(s.leg){h+='<div class="leg'+(s.fly?' fly':'')+'"><b>'+s.leg+'</b> '+esc(s.t)+'</div>';return}
+  if(s.leg){h+='<div class="leg'+(s.fly?' fly':'')+'"><svg class="legline" width="34" height="8" aria-hidden="true"><line x1="2" y1="4" x2="32" y2="4" stroke="'+(s.fly?'var(--flight)':'var(--route)')+'" stroke-width="4" stroke-linecap="round"'+(s.fly?' stroke-dasharray="5 6"':'')+'/></svg><b>'+s.leg+'</b> '+esc(s.t)+'</div>';return}
   const ph=('img' in s)?s.img:(IMGS.includes(s.id)?s.id:null),bg=BG_PHOTOS&&ph;
   h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><div class="ttlbox"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
    '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></section>';
