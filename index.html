@@ -199,7 +199,7 @@ svg#map.drag{cursor:grabbing}
 @media (max-width:820px){.leg{margin:0;padding:8px 16px 8px 43px}}
 
 /* dark top sections */
-#list{padding-top:0}
+#list{padding-top:0;padding-bottom:0}
 .head .tabs{margin-top:14px;clear:both}
 .head{border-bottom:0}
 .head h1{margin:6px 0 0}
@@ -219,6 +219,10 @@ svg#map.drag{cursor:grabbing}
 .leg.fly .legline line{stroke:#b99cf2}
 .leg .legline line{stroke:#62aef2}
 @media (max-width:820px){.legline{margin-left:-36px}}
+
+.rankbar{display:block;width:100%;margin:0;border:0;border-radius:0;padding:22px 16px;background:var(--accent);color:var(--accent-ink);font:700 28px/1 var(--font-display);letter-spacing:.02em;cursor:pointer}
+.rankbar:hover{filter:brightness(1.05)}
+@media (max-width:820px){.rankbar{font-size:24px;padding:18px 14px}}
 </style>
 </head>
 <body>
@@ -550,7 +554,7 @@ function render(){
   h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><div class="ttlbox"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
    '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></section>';
  });
- list.innerHTML=h;list.scrollTop=0;
+ list.innerHTML=h+'<button class="rankbar" type="button">Rank the routes</button>';list.scrollTop=0;list.querySelector('.rankbar').addEventListener('click',()=>rkOpen());
  list.querySelectorAll('.stop').forEach(s=>s.addEventListener('click',e=>select(s.dataset.id,{pan:true})));
 }
 function select(id,opt){
@@ -625,7 +629,8 @@ function rkUp(e){
 function rkSync(){rkSend.disabled=!VOTE_URL||!rkName.value.trim()}
 rkName.addEventListener('input',rkSync);
 function rkSay(t,err){rkMsg.textContent=t;rkMsg.className=err?'err':''}
-document.getElementById('rankBtn').addEventListener('click',()=>{rkRender();rkRes.hidden=true;rkSee.hidden=!(VOTE_URL&&rkVoted());rkSay(VOTE_URL?'':'Voting isn’t open yet.',!VOTE_URL);rkSync();if(rkDlg.showModal)rkDlg.showModal();else rkDlg.setAttribute('open','')});
+function rkOpen(){rkRender();rkRes.hidden=true;rkSee.hidden=!(VOTE_URL&&rkVoted());rkSay(VOTE_URL?'':'Voting isn’t open yet.',!VOTE_URL);rkSync();if(rkDlg.showModal)rkDlg.showModal();else rkDlg.setAttribute('open','')}
+document.getElementById('rankBtn').addEventListener('click',rkOpen);
 document.getElementById('rkCancel').addEventListener('click',()=>rkDlg.close());
 document.getElementById('rkForm').addEventListener('submit',async e=>{
  e.preventDefault();
