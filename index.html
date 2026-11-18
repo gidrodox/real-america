@@ -131,14 +131,16 @@ svg#map.drag{cursor:grabbing}
 #rankDlg label.nm{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:14px}
 #rkName{display:block;width:100%;margin-top:6px;font:15px var(--font-body);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
 #rkList{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:6px}
-#rkList li{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+#rkList li{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;position:relative}
+#rkList li:focus-visible{outline:2px solid var(--route);outline-offset:2px}
+#rkList li.drag{cursor:grabbing;z-index:2;box-shadow:0 8px 24px rgba(0,0,0,.25);background:var(--panel);transition:none}
+#rkList li.anim{transition:transform .15s}
 #rkList .pos{flex:none;width:26px;height:26px;border-radius:50%;background:var(--route);color:#fff;display:grid;place-items:center;font:700 14px var(--font-display)}
 #rkList li:first-child .pos{background:var(--accent);color:var(--accent-ink)}
 #rkList .rt{flex:1;min-width:0}
 #rkList .rt b{display:block;font-size:15px}
 #rkList .rt span{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#rkList button{flex:none;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:14px;cursor:pointer}
-#rkList button:disabled{opacity:.3;cursor:default}
+#rkList .grip{flex:none;color:var(--muted);font-size:20px;line-height:1;letter-spacing:-2px}
 #rkMsg{min-height:20px;margin:0 0 10px;font-size:14px}
 #rkMsg.err{color:#c0392b}
 #rankDlg .acts{display:flex;gap:8px;justify-content:flex-end}
@@ -146,6 +148,17 @@ svg#map.drag{cursor:grabbing}
 #rkCancel{border:1px solid var(--line);background:var(--panel);color:var(--ink)}
 #rkSend{border:1px solid var(--route);background:var(--route);color:#fff}
 #rkSend:disabled{opacity:.6;cursor:default}
+#rkRes{margin:0 0 14px}
+#rkRes h3{font-family:var(--font-display);font-size:20px;margin:4px 0 8px}
+#rkRes .tot{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:6px}
+#rkRes .tot li{display:grid;grid-template-columns:26px 92px 1fr auto;align-items:center;gap:10px;font-size:14px}
+#rkRes .tot .bar{height:10px;border-radius:5px;background:var(--route)}
+#rkRes .tot li:first-child .bar{background:var(--accent)}
+#rkRes .tot .pts{color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+#rkRes .who{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px}
+#rkRes .who b{display:inline-block;min-width:80px}
+#rkRes .who span{color:var(--muted)}
+#rkSee{background:none;border:0;padding:0;color:var(--route);font:600 14px var(--font-body);cursor:pointer;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -183,11 +196,12 @@ svg#map.drag{cursor:grabbing}
 <dialog id="rankDlg" aria-labelledby="rkTitle">
   <form method="dialog" id="rkForm">
     <h2 id="rkTitle">Rank the routes</h2>
-    <p class="hint">Put the five routes in your order. Number 1 is your favourite.</p>
-    <label class="nm">Your name<input id="rkName" maxlength="60" autocomplete="name" required></label>
+    <p class="hint">Drag the routes into your order. Number 1 is your favourite.</p>
+    <label class="nm">Your name (needed to send)<input id="rkName" maxlength="60" autocomplete="name" required></label>
     <ol id="rkList"></ol>
+    <div id="rkRes" hidden></div>
     <p id="rkMsg" role="status" aria-live="polite"></p>
-    <div class="acts"><button type="button" id="rkCancel">Close</button><button type="submit" id="rkSend">Send my ranking</button></div>
+    <div class="acts"><button type="button" id="rkSee" hidden>See everyone’s rankings</button><span style="flex:1"></span><button type="button" id="rkCancel">Close</button><button type="submit" id="rkSend">Send my ranking</button></div>
   </form>
 </dialog>
 <script>
@@ -511,17 +525,46 @@ try{const n=localStorage.getItem('rkName');if(n)rkName.value=n;const o=JSON.pars
 function rkRender(){
  rkList.innerHTML='';
  rkOrder.forEach((k,i)=>{
-  const li=document.createElement('li');
-  li.innerHTML='<span class="pos">'+(i+1)+'</span><span class="rt"><b></b><span></span></span><button type="button" aria-label="Move up">▲</button><button type="button" aria-label="Move down">▼</button>';
+  const li=document.createElement('li');li.tabIndex=0;li.dataset.k=k;
+  li.innerHTML='<span class="pos"></span><span class="rt"><b></b><span></span></span><span class="grip" aria-hidden="true">⋮⋮</span>';
   li.querySelector('b').textContent=RK_NAMES[k];li.querySelector('.rt span').textContent=OPT[k].title;
-  const [up,dn]=li.querySelectorAll('button');up.disabled=i===0;dn.disabled=i===rkOrder.length-1;
-  up.setAttribute('aria-label','Move '+RK_NAMES[k]+' up');dn.setAttribute('aria-label','Move '+RK_NAMES[k]+' down');
-  up.onclick=()=>rkMove(i,-1);dn.onclick=()=>rkMove(i,1);
+  li.addEventListener('pointerdown',rkDown);
+  li.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();rkKey(li,e.key==='ArrowUp'?-1:1)}});
   rkList.appendChild(li)});
+ rkNumber();
 }
-function rkMove(i,d){const j=i+d;if(j<0||j>=rkOrder.length)return;[rkOrder[i],rkOrder[j]]=[rkOrder[j],rkOrder[i]];rkRender();const b=rkList.children[j].querySelectorAll('button')[d<0?0:1];(b.disabled?rkList.children[j].querySelectorAll('button')[d<0?1:0]:b).focus()}
+function rkNumber(){[...rkList.children].forEach((li,i)=>{li.querySelector('.pos').textContent=i+1;li.setAttribute('aria-label',RK_NAMES[li.dataset.k]+', number '+(i+1)+' of 5. Drag, or use the up and down arrow keys to move.')});rkOrder=[...rkList.children].map(li=>li.dataset.k)}
+function rkKey(li,d){const sib=d<0?li.previousElementSibling:li.nextElementSibling;if(!sib)return;if(d<0)rkList.insertBefore(li,sib);else rkList.insertBefore(sib,li);rkNumber();li.focus();rkSay(RK_NAMES[li.dataset.k]+' is now number '+(rkOrder.indexOf(li.dataset.k)+1)+'.')}
+let rkDrag=null;
+function rkDown(e){
+ if(e.button>0)return;const li=e.currentTarget;
+ const r=li.getBoundingClientRect();
+ rkDrag={li,id:e.pointerId,grab:e.clientY-r.top,startTop:r.top};
+ li.setPointerCapture(e.pointerId);li.classList.add('drag');
+ li.addEventListener('pointermove',rkMoveP);li.addEventListener('pointerup',rkUp);li.addEventListener('pointercancel',rkUp);
+}
+function rkMoveP(e){
+ if(!rkDrag||e.pointerId!==rkDrag.id)return;const li=rkDrag.li;
+ const items=[...rkList.children].filter(x=>x!==li);
+ let ref=null;
+ for(const it of items){const r=it.getBoundingClientRect();if(e.clientY<r.top+r.height/2){ref=it;break}}
+ if(li.nextElementSibling!==ref)rkList.insertBefore(li,ref);
+ li.style.transform='none';
+ const nat=li.getBoundingClientRect().top;
+ li.style.transform='translateY('+(e.clientY-rkDrag.grab-nat)+'px)';
+ rkNumber();
+}
+function rkUp(e){
+ if(!rkDrag||e.pointerId!==rkDrag.id)return;const li=rkDrag.li;
+ li.removeEventListener('pointermove',rkMoveP);li.removeEventListener('pointerup',rkUp);li.removeEventListener('pointercancel',rkUp);
+ li.classList.remove('drag');li.classList.add('anim');li.style.transform='';
+ setTimeout(()=>li.classList.remove('anim'),160);
+ rkDrag=null;rkNumber();
+}
+function rkSync(){rkSend.disabled=!VOTE_URL||!rkName.value.trim()}
+rkName.addEventListener('input',rkSync);
 function rkSay(t,err){rkMsg.textContent=t;rkMsg.className=err?'err':''}
-document.getElementById('rankBtn').addEventListener('click',()=>{rkRender();rkSay(VOTE_URL?'':'Voting isn’t open yet.',!VOTE_URL);rkSend.disabled=!VOTE_URL;if(rkDlg.showModal)rkDlg.showModal();else rkDlg.setAttribute('open','')});
+document.getElementById('rankBtn').addEventListener('click',()=>{rkRender();rkRes.hidden=true;rkSee.hidden=!(VOTE_URL&&rkVoted());rkSay(VOTE_URL?'':'Voting isn’t open yet.',!VOTE_URL);rkSync();if(rkDlg.showModal)rkDlg.showModal();else rkDlg.setAttribute('open','')});
 document.getElementById('rkCancel').addEventListener('click',()=>rkDlg.close());
 document.getElementById('rkForm').addEventListener('submit',async e=>{
  e.preventDefault();
@@ -534,13 +577,37 @@ document.getElementById('rkForm').addEventListener('submit',async e=>{
  try{
   const r=await fetch(VOTE_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body});
   const j=await r.json();
-  if(j.ok)rkSay('Thanks, '+name+'! Your ranking is in.');else rkSay(j.error||'Something went wrong. Please try again.',true);
+  if(j.ok){rkSay('Thanks, '+name+'! Your ranking is in.');try{localStorage.setItem('rkVoted','1')}catch(_){}rkSee.hidden=true;rkResults()}else rkSay(j.error||'Something went wrong. Please try again.',true);
  }catch(_){
-  try{await fetch(VOTE_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body});rkSay('Thanks, '+name+'! Your ranking is in.')}
+  try{await fetch(VOTE_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body});rkSay('Thanks, '+name+'! Your ranking is in.');try{localStorage.setItem('rkVoted','1')}catch(_){}rkSee.hidden=true;rkResults()}
   catch(__){rkSay('Couldn’t send. Check your connection and try again.',true)}
  }
- rkSend.disabled=false;
+ rkSync();
 });
+
+const rkRes=document.getElementById('rkRes'),rkSee=document.getElementById('rkSee');
+function rkVoted(){try{return localStorage.getItem('rkVoted')==='1'}catch(_){return false}}
+async function rkResults(){
+ rkRes.hidden=false;rkRes.textContent='Loading everyone’s rankings…';
+ try{
+  const j=await (await fetch(VOTE_URL)).json();
+  if(!j.votes){rkRes.textContent='Everyone’s rankings will show here once the sheet is updated.';return}
+  const routes=j.routes||Object.values(RK_NAMES),pts={};routes.forEach(r=>pts[r]=0);
+  j.votes.forEach(v=>v.order.forEach((r,i)=>{if(r in pts)pts[r]+=routes.length-i}));
+  const max=Math.max(1,...Object.values(pts)),sorted=routes.slice().sort((a,b)=>pts[b]-pts[a]);
+  rkRes.innerHTML='';
+  const h=document.createElement('h3');h.textContent='Group ranking ('+j.votes.length+(j.votes.length===1?' vote)':' votes)');rkRes.appendChild(h);
+  const ol=document.createElement('ol');ol.className='tot';
+  sorted.forEach((r,i)=>{const li=document.createElement('li');li.innerHTML='<span class="pos"></span><b></b><span class="bar"></span><span class="pts"></span>';
+   li.querySelector('.pos').textContent=i+1;li.querySelector('b').textContent=r;li.querySelector('.bar').style.width=(pts[r]/max*100)+'%';li.querySelector('.pts').textContent=pts[r]+' pts';ol.appendChild(li)});
+  rkRes.appendChild(ol);
+  const h2=document.createElement('h3');h2.textContent='Everyone’s picks';rkRes.appendChild(h2);
+  const ul=document.createElement('ul');ul.className='who';
+  j.votes.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(v=>{const li=document.createElement('li');const b=document.createElement('b');b.textContent=v.name;const sp=document.createElement('span');sp.textContent=v.order.join(' › ');li.append(b,' ',sp);ul.appendChild(li)});
+  rkRes.appendChild(ul);
+ }catch(_){rkRes.textContent='Couldn’t load the rankings. Try again in a moment.'}
+}
+rkSee.addEventListener('click',()=>{rkSee.hidden=true;rkResults()});
 </script>
 </body>
 </html>
