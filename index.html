@@ -183,6 +183,12 @@ svg#map.drag{cursor:grabbing}
 .stop.bg .show{font-size:15.5px}
 .stop.bg .stop-top,.stop.bg .body{margin-bottom:0}
 .stop.bg{gap:12px}
+
+.stop.bg .stop-top{background:none;padding:0;-webkit-backdrop-filter:none;backdrop-filter:none;text-shadow:0 0 2px rgba(0,0,0,.95),0 1px 3px rgba(0,0,0,.9),0 0 10px rgba(0,0,0,.7)}
+.stop.bg .body{align-self:flex-start;max-width:100%;padding:7px 11px 6px;line-height:1.32;border-radius:8px}
+.stop.bg .body p{margin:0 0 3px}
+.stop.bg .body ul{margin:0;padding-left:16px}
+.stop.bg .body li{margin:0 0 1px}
 </style>
 </head>
 <body>
@@ -513,10 +519,10 @@ function render(){
   if(s.leg){h+='<div class="leg'+(s.fly?' fly':'')+'"><b>'+s.leg+'</b> '+esc(s.t)+'</div>';return}
   const ph=('img' in s)?s.img:(IMGS.includes(s.id)?s.id:null),bg=BG_PHOTOS&&ph;
   h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
-   '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><button class="show" type="button">Show on map</button></div></section>';
+   '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></section>';
  });
  list.innerHTML=h;list.scrollTop=0;
- list.querySelectorAll('.stop').forEach(s=>s.addEventListener('click',e=>select(s.dataset.id,{pan:!!e.target.closest('.show')})));
+ list.querySelectorAll('.stop').forEach(s=>s.addEventListener('click',e=>select(s.dataset.id,{pan:true})));
 }
 function select(id,opt){
  list.querySelectorAll('.stop').forEach(s=>s.classList.toggle('active',s.dataset.id===id));
