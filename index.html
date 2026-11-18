@@ -189,6 +189,14 @@ svg#map.drag{cursor:grabbing}
 .stop.bg .body p{margin:0 0 3px}
 .stop.bg .body ul{margin:0;padding-left:16px}
 .stop.bg .body li{margin:0 0 1px}
+
+.ttlbox{display:flex;align-items:center;gap:12px;min-width:0}
+.stop.bg .ttlbox{background:rgba(12,16,20,.55);border-radius:8px;padding:6px 12px 6px 8px;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);text-shadow:none}
+.stop.bg .body{font-size:15.75px}
+
+.leg{margin:0;padding:9px 22px 9px 55px;border-left:0;background:#1a252b;color:rgba(255,255,255,.72);border-bottom:4px solid var(--panel)}
+.leg b{color:#fff}
+@media (max-width:820px){.leg{margin:0;padding:8px 16px 8px 43px}}
 </style>
 </head>
 <body>
@@ -518,7 +526,7 @@ function render(){
  o.stops.forEach(s=>{
   if(s.leg){h+='<div class="leg'+(s.fly?' fly':'')+'"><b>'+s.leg+'</b> '+esc(s.t)+'</div>';return}
   const ph=('img' in s)?s.img:(IMGS.includes(s.id)?s.id:null),bg=BG_PHOTOS&&ph;
-  h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
+  h+='<section class="stop'+(bg?' bg':'')+'" id="s-'+s.id+'" data-id="'+s.id+'"'+(bg?' style="background-image:url(img/'+ph+'.jpg)"':'')+'><div class="stop-top"><div class="ttlbox"><span class="num">'+s.n+'</span><div><h3 class="sname">'+esc(s.name)+'</h3><p class="when">'+esc(s.when)+'</p></div></div>'+(s.wx?'<div class="wx" title="Average daytime high on these dates, 2021 to 2025"><span class="wxi">'+s.wx.i+'</span><span class="wxt">'+s.wx.t+'°C</span></div>':'')+'</div>'+
    '<div class="body">'+((ph&&!bg)?'<img class="photo" src="img/'+ph+'.jpg" alt="'+esc(s.name)+'" loading="lazy">':'')+'<p>'+esc(s.intro)+'</p><ul>'+s.b.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></section>';
  });
  list.innerHTML=h;list.scrollTop=0;
