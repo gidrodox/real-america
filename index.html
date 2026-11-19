@@ -300,7 +300,7 @@ const BASE={"W":1640,"H":1300,"k":4534.404518590558,"t":[7866.924519670662,3331.
 const W=BASE.W,H=BASE.H,K=BASE.k,T=BASE.t,NS='http://www.w3.org/2000/svg';
 const P=(lat,lon)=>[T[0]+K*lon*Math.PI/180,T[1]-K*Math.log(Math.tan(Math.PI/4+lat*Math.PI/360))];
 
-const LL={bard:[37.809,-85.467],tys:[35.811,-83.994],gat:[35.714,-83.511],spr:[37.209,-93.292],fs:[35.386,-94.398],eur:[36.401,-93.738],tul:[36.154,-95.993],miok:[36.874,-94.877],bran:[36.644,-93.218],hs:[34.503,-93.055],mv:[35.868,-92.117],jas:[36.008,-93.186],rog:[36.332,-94.118],law:[34.604,-98.395],okc:[35.468,-97.516],kis:[28.29,-81.407],bham:[33.52,-86.80],lou:[38.2527,-85.7585],clt:[35.227,-80.843],eth:[35.322,-87.304],mem:[35.149,-90.049],nash:[36.162,-86.781],chs:[32.777,-79.931],sav:[32.08,-81.09],cape:[28.39,-80.605],rr:[27.78,-81.2],mia:[25.775,-80.19],ever:[25.757,-80.766],dayt:[29.21,-81.02],jax:[30.332,-81.656],sta:[29.894,-81.314],chat:[35.045,-85.309],lou:[38.2527,-85.7585],atl:[33.749,-84.388],orl:[28.43,-81.31]};
+const LL={tpa:[27.95,-82.457],bard:[37.809,-85.467],tys:[35.811,-83.994],gat:[35.714,-83.511],spr:[37.209,-93.292],fs:[35.386,-94.398],eur:[36.401,-93.738],tul:[36.154,-95.993],miok:[36.874,-94.877],bran:[36.644,-93.218],hs:[34.503,-93.055],mv:[35.868,-92.117],jas:[36.008,-93.186],rog:[36.332,-94.118],law:[34.604,-98.395],okc:[35.468,-97.516],kis:[28.29,-81.407],bham:[33.52,-86.80],lou:[38.2527,-85.7585],clt:[35.227,-80.843],eth:[35.322,-87.304],mem:[35.149,-90.049],nash:[36.162,-86.781],chs:[32.777,-79.931],sav:[32.08,-81.09],cape:[28.39,-80.605],rr:[27.78,-81.2],mia:[25.775,-80.19],ever:[25.757,-80.766],dayt:[29.21,-81.02],jax:[30.332,-81.656],sta:[29.894,-81.314],chat:[35.045,-85.309],lou:[38.2527,-85.7585],atl:[33.749,-84.388],orl:[28.43,-81.31]};
 const R_MIA_EVER=[[25.775,-80.19],[25.762,-80.3],[25.761,-80.48],[25.761,-80.62],[25.757,-80.766]];
 const R_CHS_SAV=[[32.777,-79.931],[32.79,-80.03],[32.78,-80.25],[32.77,-80.45],[32.7,-80.68],[32.63,-80.87],[32.48,-80.98],[32.27,-81.08],[32.16,-81.1],[32.08,-81.09]];
 const I95=[[32.06,-81.26],[31.93,-81.33],[31.66,-81.4],[31.38,-81.45],[31.22,-81.52],[30.96,-81.67],[30.79,-81.66],[30.6,-81.65],[30.33,-81.66],[30.14,-81.53],[29.92,-81.41],[29.55,-81.23],[29.29,-81.11]];
@@ -388,22 +388,22 @@ val:{
 nov:{
  title:'Nashville to Miami',
  diffH:'Only in November',
- sc:[4.5,3.5,4.5],
- diff:['The Jack Daniel’s distillery.','Halloween night in Atlanta.','Presidential election night in Miami.'],
+ sc:[4.5,3.5,4],
+ diff:['The Jack Daniel’s distillery.','Halloween night in Charlotte, NASCAR’s home town.','Tampa’s cigar district and the Weeki Wachee mermaids.','Presidential election night in Miami.'],
  stops:[
   {id:'nash',wx:{t:21,i:'⛅'},img:'nash_nov',name:'Nashville',dx:0,dy:-22,a:'middle',when:'Fri 27 and Sat 28 October · 2 nights',intro:'Country music’s capital.',b:['Honky-tonks along Broadway.','A day trip to Ethridge, Tennessee’s Amish country: a horse-drawn wagon through the farms.','The Grand Ole Opry.','A megachurch with thousands of worshippers.','Nashville hot chicken.']},
   {leg:'Drive',t:'about 2.75 hours, stopping at Jack Daniel’s'},
   {id:'chat',wx:{t:19,i:'🌦️'},img:'chat',name:'Chattanooga',dx:-20,dy:5,a:'end',when:'Sun 29 October · 1 night',intro:'A river city in the Tennessee hills.',b:['On the way, the Jack Daniel’s distillery.','Lookout Mountain and Rock City.','The riverfront and the old Chattanooga Choo Choo station.']},
   {leg:'Drive',t:'about 2.25 hours'},
   {id:'gat',wx:{t:18,i:'🌧️'},img:'gat',name:'Gatlinburg',dx:20,dy:5,a:'start',when:'Mon 30 October · 1 night',intro:'A mountain town at the edge of the Smokies.',b:['Moonshine tasting rooms on the main street.','The Smoky Mountains in autumn colour.']},
-  {leg:'Drive',t:'about 4 hours, stopping at Tennessee Silencer'},
-  {id:'atl',wx:{t:19,i:'☁️'},img:'atl_hw',name:'Atlanta',dx:20,dy:5,a:'start',when:'Tue 31 October and Wed 1 November · 2 nights',intro:'The capital of the South.',b:['On the way, Tennessee Silencer: a Humvee ride to the range, .50 cal machine guns, flamethrowers and shooting from a tank.','Halloween night out, with the whole city in costume.','Martin Luther King’s birthplace and Ebenezer Baptist Church, where he preached.']},
-  {leg:'Fly',t:'about 1.5 hours',fly:true},
-  {id:'dayt',wx:{t:25,i:'⛅'},img:'dayt_car',name:'Daytona Beach',dx:20,dy:5,a:'start',when:'Thu 2 November · 1 night',intro:'The home of American stock car racing.',b:['The biker bars of Main Street.','Destination Daytona, a giant Harley dealership with bars and live music.','Drive a NASCAR stock car round the Speedway, or ride along at up to 170 mph.','The Motorsports Hall of Fame.']},
-  {leg:'Drive',t:'about 1 hour'},
-  {id:'orl',wx:{t:26,i:'⛅'},img:'orl_bus',name:'Orlando',dx:-20,dy:5,a:'end',when:'Fri 3 November · 1 night',intro:'Central Florida.',b:['Racing at Orlando Speed World: stock cars on the oval or street cars on the drag strip.']},
+  {leg:'Drive',t:'about 4.25 hours, stopping at Tennessee Silencer'},
+  {id:'clt',wx:{t:21,i:'☀️'},img:'clt',below:true,name:'Charlotte',dx:20,dy:5,a:'start',when:'Tue 31 October and Wed 1 November · 2 nights',intro:'NASCAR’s home town.',b:['On the way, Tennessee Silencer: a Humvee ride to the range, .50 cal machine guns, flamethrowers and shooting from a tank.','Halloween night out in costume, in the bars of Plaza Midwood and NoDa.','The NASCAR Hall of Fame.','Drive a NASCAR stock car round Charlotte Motor Speedway, or ride along.','The race team shops of Mooresville, Race City USA.']},
+  {leg:'Fly',t:'about 1.75 hours',fly:true},
+  {id:'tpa',wx:{t:29,i:'☀️'},img:null,name:'Tampa',dx:-20,dy:5,a:'end',when:'Thu 2 November · 1 night',intro:'Cigar City, on the Gulf coast.',b:['A tour of El Reloj, the last working cigar factory in Ybor City.','A night out on 7th Avenue in Ybor City, Tampa’s old Latin quarter.','A Tampa Cuban sandwich, made with salami.']},
+  {leg:'Drive',t:'about 3 hours, stopping at Weeki Wachee'},
+  {id:'orl',wx:{t:26,i:'⛅'},img:'orl_bus',name:'Orlando',dx:0,dy:-14,a:'middle',when:'Fri 3 November · 1 night',intro:'Central Florida.',b:['On the way, the Weeki Wachee mermaids: a live underwater show in a natural spring, running since 1947.','Racing at Orlando Speed World: stock cars on the oval or street cars on the drag strip.']},
   {leg:'Drive',t:'about 1.5 hours'},
-  {id:'rr',wx:{t:27,i:'⛅'},name:'River Ranch',dx:-20,dy:5,a:'end',when:'Sat 4 November · 1 night',intro:'A dude ranch in Florida cattle country.',b:['The rodeo: bull riding, barrel racing and trick riding.','A swamp buggy ride through the wetlands.','Country bands and line dancing in the ranch saloon.']},
+  {id:'rr',wx:{t:27,i:'⛅'},name:'River Ranch',dx:0,dy:26,a:'middle',when:'Sat 4 November · 1 night',intro:'A dude ranch in Florida cattle country.',b:['The rodeo: bull riding, barrel racing and trick riding.','A swamp buggy ride through the wetlands.','Country bands and line dancing in the ranch saloon.']},
   {leg:'Drive',t:'about 2 hours'},
   {id:'cape',wx:{t:26,i:'⛅'},name:'Cape Canaveral',dx:20,dy:5,a:'start',when:'Sun 5 and Mon 6 November · 2 nights',intro:'America’s spaceport, on the Florida coast.',b:['A live rocket launch, watched from the beach.','Kennedy Space Center.']},
   {leg:'Drive',t:'about 3 hours'},
@@ -413,13 +413,13 @@ nov:{
  roads:[
   [[36.162,-86.781],[35.85,-86.45],[35.5,-86.4],[35.283,-86.374],[35.186,-86.112],[35.24,-85.84],[35.07,-85.63],[35.045,-85.309]],
   [[35.045,-85.309],[35.25,-84.95],[35.55,-84.62],[35.85,-84.35],[36.05,-84.08],[36.1,-83.8],[36.0,-83.58],[35.85,-83.5],[35.714,-83.511]],
-  [[35.714,-83.511],[35.72,-83.65],[35.78,-83.82],[35.66,-84.0],[35.5,-84.22],[35.3,-84.45],[35.0,-84.62],[34.77,-84.77],[34.5,-84.87],[34.17,-84.8],[33.95,-84.55],[33.749,-84.388]],
-  [[29.21,-81.02],[29.0,-81.1],[28.8,-81.15],[28.55,-81.2],[28.43,-81.31]],
+  [[35.714,-83.511],[35.85,-83.35],[35.97,-83.19],[35.78,-82.95],[35.60,-82.55],[35.62,-82.32],[35.68,-82.0],[35.73,-81.34],[35.78,-80.89],[35.5,-80.85],[35.227,-80.843]],
+  [[27.95,-82.457],[28.2,-82.5],[28.517,-82.573],[28.55,-82.39],[28.55,-82.0],[28.55,-81.77],[28.5,-81.5],[28.43,-81.31]],
   [[28.43,-81.31],[28.33,-81.33],[28.2,-81.22],[28.0,-81.05],[27.85,-80.95],[27.7,-80.905],[27.74,-81.05],[27.78,-81.2]],
   [[27.78,-81.2],[27.74,-81.05],[27.7,-80.905],[27.88,-80.99],[27.99,-81.03],[28.13,-81.08],[28.11,-80.85],[28.09,-80.71],[28.24,-80.74],[28.43,-80.79],[28.41,-80.72],[28.39,-80.605]],
   [[28.39,-80.605],[28.2,-80.67],[27.9,-80.55],[27.6,-80.4],[27.25,-80.3],[26.93,-80.14],[26.71,-80.08],[26.46,-80.1],[26.1,-80.15],[25.775,-80.19]]
  ],
- flights:[['atl','dayt',0.3]]
+ flights:[['clt','tpa',0.3]]
 },
 may:{
  title:'Louisville to Miami',
